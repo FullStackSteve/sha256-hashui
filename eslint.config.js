@@ -9,7 +9,12 @@ import prettier from 'eslint-plugin-prettier/recommended'
 import json from '@eslint/json'
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  {
+    plugins: {
+      json,
+    },
+  },
+  globalIgnores(['dist', 'coverage']),
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
@@ -27,7 +32,8 @@ export default defineConfig([
   },
   {
     files: ['**/*.json'],
-    extends: [json],
+    extends: [json.configs.recommended],
+    language: 'json/jsonc',
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
