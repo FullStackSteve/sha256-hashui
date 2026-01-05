@@ -10,7 +10,9 @@
     "format": "prettier . --write",
     "preview": "vite preview",
     "test": "vitest",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "react": "^19.2.0",
@@ -41,6 +43,9 @@
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.4",
     "vite": "^7.2.4",
-    "vitest": "^4.0.16"
+    "vitest": "^4.0.16",
+    "storybook": "^10.1.11",
+    "@storybook/react-vite": "^10.1.11",
+    "eslint-plugin-storybook": "^10.1.11"
   }
 }
