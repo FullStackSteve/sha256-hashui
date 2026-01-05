@@ -117,7 +117,12 @@ export function App() {
   return (
     <Container maxWidth="sm">
       <Box sx={{ my: 4 }}>
-        <Typography variant="h2" component="h1" sx={{ mb: 2 }}>
+        <Typography
+          data-testid="heading"
+          variant="h2"
+          component="h1"
+          sx={{ mb: 2 }}
+        >
           Sha256 Encoder
         </Typography>
         {!isChunking && !isEncoding && (
