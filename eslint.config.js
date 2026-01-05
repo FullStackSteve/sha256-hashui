@@ -6,6 +6,7 @@ import tseslint from 'typescript-eslint'
 import eslintConfigPrettier from 'eslint-config-prettier'
 import { defineConfig, globalIgnores } from 'eslint/config'
 import prettier from 'eslint-plugin-prettier/recommended'
+import json from '@eslint/json'
 
 export default defineConfig([
   globalIgnores(['dist']),
@@ -19,6 +20,14 @@ export default defineConfig([
       prettier,
       eslintConfigPrettier,
     ],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: globals.browser,
+    },
+  },
+  {
+    files: ['**/*.json'],
+    extends: [json],
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
