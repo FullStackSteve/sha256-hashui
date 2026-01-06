@@ -1,5 +1,7 @@
 import type { Preview } from '@storybook/react-vite'
 import '../src/index.css'
+import { StrictMode } from 'react'
+import { CssBaseline } from '@mui/material'
 
 const preview: Preview = {
   parameters: {
@@ -10,7 +12,14 @@ const preview: Preview = {
       },
     },
   },
-  decorators: [(Story) => <Story />],
+  decorators: [
+    (Story) => (
+      <StrictMode>
+        <CssBaseline />
+        <Story />
+      </StrictMode>
+    ),
+  ],
 }
 
 export default preview
