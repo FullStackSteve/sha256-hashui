@@ -5,9 +5,10 @@ export interface InputProps extends Omit<
   'variant'
 > {
   label?: string
+  maxLength?: number
 }
 
-export function Input({ label, ...props }: InputProps) {
+export function Input({ label, maxLength = 500, ...props }: InputProps) {
   return (
     <TextField
       label={label}
@@ -15,6 +16,7 @@ export function Input({ label, ...props }: InputProps) {
       rows={4}
       fullWidth
       sx={{ mt: 2 }}
+      slotProps={{ htmlInput: { maxLength } }}
       {...props}
       variant="outlined"
     />

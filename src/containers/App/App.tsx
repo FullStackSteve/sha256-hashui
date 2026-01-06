@@ -46,7 +46,7 @@ export function App() {
           />
         )}
         {error && <Text message={error} dataTestId="encode-error" />}
-        <Input label={'Test entering text here :-)'} />
+        <Input label={'Test entering text here :-)'} maxLength={500} />
         <DebugPanel
           data={{
             file: file ? { name: file.name, size: file.size } : null,
