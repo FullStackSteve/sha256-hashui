@@ -16,7 +16,7 @@ export function Input({ label, maxLength = 500, ...props }: InputProps) {
       rows={4}
       fullWidth
       sx={{ mt: 2 }}
-      slotProps={{ htmlInput: { maxLength } }}
+      slotProps={{ htmlInput: { maxLength, 'data-testid': 'text-input' } }}
       {...props}
       variant="outlined"
     />

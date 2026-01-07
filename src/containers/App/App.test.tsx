@@ -54,7 +54,7 @@ describe('App.tsx', async () => {
     expect((input as HTMLInputElement).files?.[0]).toBe(file)
   })
 
-  test('it can encode a file', async () => {
+  test('it can encode a file and show output in green color with file stats', async () => {
     // ARRANGE
     render(<App />)
 
@@ -69,14 +69,21 @@ describe('App.tsx', async () => {
     await userEvent.click(button)
 
     const output = await screen.findByTestId('encode-success')
+    const outputFilename = await screen.findByTestId('encode-filename')
+    const outputFilesize = await screen.findByTestId('encode-filesize')
+    const outputFiletype = await screen.findByTestId('encode-filetype')
 
     // ASSERT
     expect(output).toHaveTextContent(
       '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08'
     )
+    expect(output).toHaveStyle({ color: 'rgb(46, 125, 50)' })
+    expect(outputFilename).toHaveTextContent('File Name: test.txt')
+    expect(outputFilesize).toHaveTextContent('File Size: 4 bytes')
+    expect(outputFiletype).toHaveTextContent('File Type: text/plain')
   })
 
-  test('it can handle errors when no file is selected', async () => {
+  test('it can handle errors when no file is selected and output in blue', async () => {
     // ARRANGE
     render(<App />)
 
@@ -87,6 +94,7 @@ describe('App.tsx', async () => {
 
     // ASSERT
     expect(output).toHaveTextContent('No file selected for encoding')
+    expect(output).toHaveStyle({ color: 'rgb(25, 118, 210)' })
   })
 
   test('it can handle errors when encoding a file', async () => {
@@ -107,10 +115,30 @@ describe('App.tsx', async () => {
     await userEvent.click(button)
 
     const output = await screen.findByTestId('encode-error')
+    const buttonReRendered = await screen.findByTestId('encode-button')
 
     // ASSERT
     expect(output).toHaveTextContent(
       'Error during encoding: Hash creation failed'
     )
+    expect(output).toHaveStyle({ color: 'rgb(25, 118, 210)' })
+    expect(buttonReRendered).toBeVisible()
+  })
+
+  test('it can only enter 500 chars in the textbox', async () => {
+    // ARRANGE
+    render(<App />)
+    let longText = ''
+
+    for (let i = 0; i < 500; i++) {
+      longText += 'x'
+    }
+
+    // ACT
+    const input = (await screen.findByTestId('text-input')) as HTMLInputElement
+    await userEvent.type(input, longText)
+
+    // ASSERT
+    expect(input.value.length).toBe(500)
   })
 })

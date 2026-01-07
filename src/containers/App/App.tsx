@@ -25,7 +25,7 @@ export function App() {
   } = useEncode()
 
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="md">
       <Box sx={{ my: 4 }}>
         <Text message="Sha256 Encoder" data-testid="heading" />
         {!isChunking && !isEncoding && (
@@ -40,12 +40,30 @@ export function App() {
         )}
         {isEncoding && <ProgressIndicator progress={encodingProgress} />}
         {hasEncoded && (
-          <Text
-            message={`File encoded successfully ${hash}`}
-            dataTestId="encode-success"
-          />
+          <>
+            <Text
+              message={`File encoded successfully ${hash}`}
+              dataTestId="encode-success"
+              color="success"
+            />
+            <Text
+              message={file ? `File Name: ${file.name}` : ''}
+              dataTestId="encode-filename"
+            />
+            <Text
+              message={file ? `File Size: ${file.size} bytes` : ''}
+              dataTestId="encode-filesize"
+            />
+            <Text
+              message={file ? `File Type: ${file.type}` : ''}
+              dataTestId="encode-filetype"
+            />
+          </>
         )}
-        {error && <Text message={error} dataTestId="encode-error" />}
+        {error && (
+          <Text message={error} color="primary" dataTestId="encode-error" />
+        )}
+
         <Input label={'Test entering text here :-)'} maxLength={500} />
         <DebugPanel
           data={{
