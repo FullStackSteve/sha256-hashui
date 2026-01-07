@@ -3,15 +3,14 @@ import { createSHA256 } from 'hash-wasm'
 
 export function useEncode() {
   const [file, setFile] = useState<File | null>(null)
-  const [isChunking, setIsChunking] = useState(false)
+  const [isChunking, setIsChunking] = useState<boolean>(false)
   const [fileChunks, setFileChunks] = useState<File[]>([])
-  const [currentChunk, setCurrentChunk] = useState(0)
+  const [currentChunk, setCurrentChunk] = useState<number>(0)
 
-  const [isEncoding, setIsEncoding] = useState(false)
-  const [hasEncoded, setHasEncoded] = useState(false)
-  const [encodingProgress, setEncodingProgress] = useState(0)
-
-  const [hash, setHash] = useState('')
+  const [isEncoding, setIsEncoding] = useState<boolean>(false)
+  const [hasEncoded, setHasEncoded] = useState<boolean>(false)
+  const [encodingProgress, setEncodingProgress] = useState<number>(0)
+  const [hash, setHash] = useState<string>('')
   const [error, setError] = useState<string | null>(null)
 
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,6 +47,7 @@ export function useEncode() {
   const handleError = useEffectEvent((errorMessage: string) => {
     setIsChunking(false)
     setIsEncoding(false)
+    setHasEncoded(false)
     setError(errorMessage)
   })
 
